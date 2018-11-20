@@ -1,0 +1,58 @@
+{% load staticfiles %}
+
+<link rel="shortcut icon" href="{% static 'favicon.png' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+
+<div class="container">
+    {% if users and algorithms and bases %}
+        <form action="{% url 'assignment1:recommendation' %}" method="get">
+            {% csrf_token %}
+            <h2>User</h2>
+            <ul>
+                {% for user in users %}
+                <li>
+                    {% if forloop.first %}
+                        <input type="radio" name="user" id="user{{ forloop.counter  }}" value="{{ user.user_id }}" checked="checked">
+                    {% else %}
+                        <input type="radio" name="user" id="user{{ forloop.counter  }}" value="{{ user.user_id }}">
+                    {% endif %}
+                    <label for="user{{ forloop.counter  }}">{{ user.name }}</label><br>
+                    <div class="check"></div>
+                </li>
+                {% endfor %}
+            </ul>
+            <h2>Algorithm</h2>
+            <ul>
+                {% for algorithm in algorithms %}
+                    <li>
+                        {% if forloop.first %}
+                            <input type="radio" name="algorithm" id="algorithm{{ forloop.counter }}" value="{{ algorithm }}" checked="checked">
+                        {% else %}
+                            <input type="radio" name="algorithm" id="algorithm{{ forloop.counter }}" value="{{ algorithm }}">
+                        {% endif %}
+                        <label for="algorithm{{ forloop.counter }}">{{ algorithm }}</label><br>
+                        <div class="check"></div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <h2>Base</h2>
+            <ul>
+                {% for base in bases %}
+                    <li>
+                        {% if forloop.first %}
+                            <input type="radio" name="base" id="base{{ forloop.counter }}" value="{{ base }}" checked="checked">
+                        {% else %}
+                            <input type="radio" name="base" id="base{{ forloop.counter }}" value="{{ base }}">
+                        {% endif %}
+                        <label for="base{{ forloop.counter }}">{{ base }}</label><br>
+                        <div class="check"></div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <br>
+            <input class="button" type="submit" value="Get recommendations">
+        </form>
+    {% else %}
+        <a href="/assignment1/load">Load data</a>
+    {% endif %}
+</div>

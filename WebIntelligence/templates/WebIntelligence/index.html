@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if apps %}
+        <ul>
+        {% for app in apps %}
+            <li><a href="/{{ app }}/">{{ app }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No assignment pages are available.</p>
+    {% endif %}
+{% endblock %}
