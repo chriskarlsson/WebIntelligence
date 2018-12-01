@@ -21,5 +21,6 @@ from WebIntelligence import views
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('assignment1/', include('assignment1.urls')),
+    path('assignment2/', include('assignment2.urls')),
     path('admin/', admin.site.urls),
 ]

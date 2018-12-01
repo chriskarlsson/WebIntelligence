@@ -1,0 +1,13 @@
+
+
+<div class="container">
+    {% if clusterings %}
+        <ul>
+        {% for clustering in clusterings %}
+            <li><a href="/{{ clustering }}/">{{ clustering }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <a href="/assignment2/load">Load data</a>
+    {% endif %}
+</div>

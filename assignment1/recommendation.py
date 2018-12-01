@@ -1,5 +1,4 @@
-from math import sqrt
-
+from shared_logic.distance_calculations import euclidean, pearson
 from .models import Movie, User, Rating
 
 
@@ -10,7 +9,7 @@ class Algorithm:
 
 
 def get_available_algorithms():
-    return [Algorithm('Euclidean', _euclidean), Algorithm('Pearson', _pearson)]
+    return [Algorithm('Euclidean', euclidean), Algorithm('Pearson', pearson)]
 
 
 def get_available_bases():
@@ -105,38 +104,3 @@ def _calculate_score(weights):
 
     return 0 if weight_sum == 0 else total_sum / weight_sum
 
-
-def _euclidean(ratings):
-    total_sum = 0
-    n = 0
-
-    for rating in ratings:
-        total_sum += (rating[0] - rating[1])**2
-        n += 1
-
-    return 0 if n == 0 else 1/(1 + total_sum)
-
-
-def _pearson(ratings):
-    sum_1 = 0
-    sum_2 = 0
-    sum_1_sq = 0
-    sum_2_sq = 0
-    p_sum = 0
-    n = 0
-
-    for rating in ratings:
-        sum_1 += rating[0]
-        sum_2 += rating[1]
-        sum_1_sq += rating[0]**2
-        sum_2_sq += rating[1]**2
-        p_sum += rating[0] * rating[1]
-        n += 1
-
-    if n == 0:
-        return 0
-
-    num = p_sum - (sum_1 * sum_2 / n)
-    den = sqrt((sum_1_sq - sum_1**2 / n) * (sum_2_sq - sum_2**2 / n))
-
-    return num / den
