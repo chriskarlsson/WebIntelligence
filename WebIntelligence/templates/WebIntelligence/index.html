@@ -1,13 +1,15 @@
-{% extends 'base.html' %}
+{% load staticfiles %}
+<link rel="shortcut icon" href="{% static 'favicon.png' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 
-{% block content %}
+<div class="container">
     {% if apps %}
         <ul>
         {% for app in apps %}
-            <li><a href="/{{ app }}/">{{ app }}</a></li>
+            <li><a href="/{{ app }}/" class="button">{{ app }}</a></li>
         {% endfor %}
         </ul>
     {% else %}
         <p>No assignment pages are available.</p>
     {% endif %}
-{% endblock %}
+</div>

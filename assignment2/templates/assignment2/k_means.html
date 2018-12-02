@@ -1,16 +1,19 @@
-
+{% load staticfiles %}
+<link rel="shortcut icon" href="{% static 'favicon.png' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 
 <div class="container">
-    {% if centroids.all %}
-        <h2>K-means Clustering</h2>
+    {% if centroids %}
+        <h1>K-means Clustering</h1>
         <p>Number of iterations: {{ iterations }}</p>
         {% for centroid in centroids %}
-        <h3>Centroid {{ forloop.counter }}</h3>
+        <h2>Centroid {{ forloop.counter }}</h2>
         <ul>
             {% for blog in centroid %}
-            <li>{{ blog.title }}</li>
+            <li class="tight">{{ blog.title }}</li>
             {% endfor %}
         </ul>
+        <p></p>
         {% endfor %}
     {% else %}
         <a href="/assignment2/load">Load datas</a>

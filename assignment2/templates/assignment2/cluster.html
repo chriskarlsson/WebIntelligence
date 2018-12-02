@@ -1,0 +1,13 @@
+<li class="nested">
+    {%if cluster.is_leaf %}
+        {{cluster.title}}
+    {%else%}
+        <ul class="nested">
+        {%for child in cluster.children %}
+             {%with cluster=child template_name="assignment2/cluster.html" %}
+                  {%include template_name%}
+             {%endwith%}
+        {%endfor%}
+        </ul>
+    {%endif%}
+</li>

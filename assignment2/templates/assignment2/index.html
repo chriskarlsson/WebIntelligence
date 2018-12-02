@@ -1,13 +1,12 @@
-
+{% load staticfiles %}
+<link rel="shortcut icon" href="{% static 'favicons.png' %}"/>
+<link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
 
 <div class="container">
-    {% if clusterings %}
-        <ul>
-        {% for clustering in clusterings %}
-            <li><a href="/{{ clustering }}/">{{ clustering }}</a></li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <a href="/assignment2/load">Load data</a>
-    {% endif %}
+    <h2>Assignment 2</h2>
+    <ul>
+    {% for link, label in algorithms %}
+        <li><a href="./{{ link }}/" class="button">{{ label }}</a></li>
+    {% endfor %}
+    </ul>
 </div>

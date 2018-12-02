@@ -3,23 +3,23 @@ from shared_logic.distance_calculations import pearson
 
 
 class Cluster:
-    def __init__(self, right, left=None, distance=None, parent=None):
-        self.right = right
-        self.left = left
+    def __init__(self, children, distance=None, parent=None):
+        self.children = children
         self.parent = parent
         self.word_counts = dict()
         self.distance = distance
+        self.title = self.children[0].title if type(self.children[0]) is Blog else None
 
     @property
     def is_leaf(self):
-        return self.right is not None and self.left is None
+        return len(self.children) == 1
 
 
-def iterate():
+def get_clusters():
     clusters = []
     words_ids = [word.id for word in Word.objects.all()]
     for blog in Blog.objects.all():
-        leaf_cluster = Cluster(blog)
+        leaf_cluster = Cluster([blog])
 
         for word_count in WordCount.objects.filter(blog=blog):
             leaf_cluster.word_counts[word_count.word_id] = word_count.count
@@ -49,11 +49,11 @@ def iterate():
         clusters.remove(a)
         clusters.remove(b)
 
-    return clusters
+    return clusters[0]
 
 
 def _merge(words_ids, cluster_a, cluster_b, distance):
-    cluster_p = Cluster(cluster_a, cluster_b, distance)
+    cluster_p = Cluster([cluster_a, cluster_b], distance)
     cluster_a.parent = cluster_p
     cluster_b.parent = cluster_p
 

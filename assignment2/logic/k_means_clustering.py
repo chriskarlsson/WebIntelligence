@@ -29,7 +29,7 @@ def get_centroids(number_of_centroids, number_of_iterations):
         blog_word_counts[blog] = word_counts
 
     for iteration in range(number_of_iterations):
-        if iteration > 0 and  sum(centroid.blog_collection_unchanged() for centroid in centroids) == len(centroids):
+        if iteration > 0 and sum(centroid.blog_collection_unchanged() for centroid in centroids) == len(centroids):
             break
 
         for centroid in centroids:

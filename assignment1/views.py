@@ -1,3 +1,4 @@
+from os import path
 from csv import DictReader
 
 from django.http import HttpResponseRedirect
@@ -37,13 +38,15 @@ def recommendation(request):
 
 
 def load_data(_):
-    with open('../assignment1/users.csv', 'r') as users_csv:
+    dir_name = path.dirname(__file__)
+
+    with open(path.join(dir_name, 'users.csv'), 'r') as users_csv:
         users = DictReader(users_csv, delimiter=';')
 
         for user in users:
             User.objects.get_or_create(name=user['UserName'], user_id=user['UserID'])
 
-    with open('../assignment1/ratings.csv', 'r') as ratings_csv:
+    with open(path.join(dir_name, 'ratings.csv'), 'r') as ratings_csv:
         ratings = DictReader(ratings_csv, delimiter=';')
 
         for rating in ratings:
