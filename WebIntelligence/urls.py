@@ -22,5 +22,6 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('assignment1/', include('assignment1.urls')),
     path('assignment2/', include('assignment2.urls')),
+    path('assignment3/', include('assignment3.urls')),
     path('admin/', admin.site.urls),
 ]
