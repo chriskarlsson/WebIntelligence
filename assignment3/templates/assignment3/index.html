@@ -4,13 +4,13 @@
 
 <div class="container">
     <h2>Assignment 3</h2>
-    <form action="{% url 'assignment3:search' %}" method="get">
+    <form action="{% url 'assignment3:index' %}" method="get">
         {% csrf_token %}
         <input type="text" name="query" value="{{ original_query }}"><input type="submit" value="Search">
     </form>
     <ul>
     {% for result in results %}
-        <li><a href="https://en.wikipedia.org/wiki/{{ url }}/" class="button">{{ result.url }}</a> {{ result.total_score }} {{ result.page_rank_score }}</li>
+        <li><a href="https://en.wikipedia.org/wiki/{{ result.title }}/" class="button">{{ result.title }}</a> {{ result.total_score }} {{ result.page_rank_score }}</li>
     {% endfor %}
     </ul>
 </div>

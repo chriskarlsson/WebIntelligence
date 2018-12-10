@@ -50,6 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'assignment3.middleware.startup_middleware.LoadData'
 ]
 
 ROOT_URLCONF = 'WebIntelligence.urls'
