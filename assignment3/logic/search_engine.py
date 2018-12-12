@@ -1,5 +1,4 @@
 from assignment3.logic.data_store import get_data
-from assignment3.models import WordCount, Page, Word
 
 
 class Result:
@@ -12,12 +11,12 @@ class Result:
         self.word_frequency_score = 0
         self.document_location_score = 0
         self.page_rank_score = page_rank_score
+        self.total_score = 0
 
-    @property
-    def total_score(self):
-        return self.word_frequency_score / Result.word_frequency_score_normalizer + \
-               0.8 * Result.document_location_score_normalizer / self.document_location_score + \
-               0.5 * self.page_rank_score / Result.page_rank_score_normalizer
+    def calculate_total_score(self):
+        self.total_score = self.word_frequency_score / Result.word_frequency_score_normalizer + \
+                           0.8 * Result.document_location_score_normalizer / self.document_location_score + \
+                           0.5 * self.page_rank_score / Result.page_rank_score_normalizer
 
 
 def search(query, number_of_results):
@@ -31,10 +30,9 @@ def search(query, number_of_results):
         if word_id is not None:
             query_word_identifiers.append(word_id)
 
-    for page in pages:
+    for _, page in pages.items():
         result = Result(page.title, page.page_rank_score)
 
-        # page_word_counts = [word_count for word_count in word_counts if word_count.page_id == page.id]
         page_word_counts = word_counts.get(page.id)
         page_word_query_counts = []
         for word_id in query_word_identifiers:
@@ -51,5 +49,8 @@ def search(query, number_of_results):
     Result.word_frequency_score_normalizer = max(result.word_frequency_score for result in results)
     Result.document_location_score_normalizer = min(result.document_location_score for result in results)
     Result.page_rank_score_normalizer = max(result.page_rank_score for result in results)
+
+    for result in results:
+        result.calculate_total_score()
 
     return sorted(results, key=lambda x: x.total_score, reverse=True)[:number_of_results]

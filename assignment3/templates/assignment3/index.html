@@ -6,11 +6,20 @@
     <h2>Assignment 3</h2>
     <form action="{% url 'assignment3:index' %}" method="get">
         {% csrf_token %}
-        <input type="text" name="query" value="{{ original_query }}"><input type="submit" value="Search">
+        <input type="text" name="query" value="{{ original_query }}" class="inputField"><input type="submit" value="Search" class="button">
     </form>
-    <ul>
-    {% for result in results %}
-        <li><a href="https://en.wikipedia.org/wiki/{{ result.title }}/" class="button">{{ result.title }}</a> {{ result.total_score }} {{ result.page_rank_score }}</li>
-    {% endfor %}
-    </ul>
+    <table style="width:100%">
+        <tr>
+            <td>Page</td>
+            <td>Total score</td>
+            <td>Page rank score</td>
+        </tr>
+        {% for result in results %}
+            <tr>
+                <td><a href="https://en.wikipedia.org/wiki/{{ result.title }}/">{{ result.title }}</a></td>
+                <td>{{ result.total_score|floatformat:2 }}</td>
+                <td>{{ result.page_rank_score|floatformat:2 }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 </div>

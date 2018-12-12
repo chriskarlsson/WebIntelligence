@@ -26,7 +26,8 @@ h1, h2 {
     padding-bottom: 75px
 }
 
-.button {
+.button,
+.inputField{
     color: #AAAAAA;
     font-weight: 300;
     font-size: 1.35em;
@@ -36,6 +37,20 @@ h1, h2 {
     padding: 10px;
     border-radius: 10px;
     font-weight: bold;
+}
+
+.inputField{
+    margin-right: 10px;
+}
+
+a:link,
+td{
+    color: #AAAAAA;
+}
+
+td{
+    font-weight: 300;
+    font-size: 1.35em;
 }
 
 .nested{
